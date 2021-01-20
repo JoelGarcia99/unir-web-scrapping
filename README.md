@@ -2,7 +2,8 @@
 1. Flask: ```pip install Flask```.
 2. npm
 3. Selenium: ```pip install selenium```
-3. Chrome Driver: descargar de https://chromedriver.storage.googleapis.com/index.html?path=88.0.4324.27/ y ubicarlo en la carpeta *web driver*
+4. Google Chrome 
+5. Chrome Driver: descargar de https://chromedriver.storage.googleapis.com/index.html?path=88.0.4324.27/ y ubicarlo en la carpeta *web driver*
 
 
 # Comandos

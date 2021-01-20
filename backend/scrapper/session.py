@@ -1,5 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys # Emular acciones de teclado
+from selenium.webdriver.support.ui import WebDriverWait # para esperar a que la página cargue
+from selenium.webdriver.common.by import By # para hacer búsquedas parametrizadas
+from selenium.webdriver.support import expected_conditions as EC # Para condicionar WebDriverWait
 
 # El driver hace referencia a un webdriver
 def login(driver, username, password):
@@ -14,8 +17,8 @@ def login(driver, username, password):
     password_box.send_keys(Keys.RETURN) # RETURN es la tecla enter
 
     # Esperando a que la sesion cargue
-    search_results = WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.CLASS_NAME, "main-content"))
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CLASS_NAME, "main-content"))
     )
-    
+
     return True
