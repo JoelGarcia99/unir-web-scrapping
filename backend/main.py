@@ -27,3 +27,8 @@ def load_post():
     out = forum.load_forums(driver)
     return str(out)
 
+@app.route('/status', methods=['GET'])
+def isSignedIn():
+    signed = session.isSignedIn(driver)
+    return signed
+

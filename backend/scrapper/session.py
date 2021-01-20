@@ -22,3 +22,7 @@ def login(driver, username, password):
     )
 
     return True
+
+def isSignedIn(driver):
+    logged = driver.find_element_by_css_selector(".main-content")
+    return logged is None
