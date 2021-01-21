@@ -13,7 +13,7 @@ def __access_subforum(driver, parent, first=False):
     for reply in replies:
       key = reply.find_elements_by_css_selector("div.messageMetadata span.textPanelFooter")
       key = tuple(map(lambda x:x.text, key))
-      key = functools.reduce(lambda x, y: x + " " + y, key)
+      key = functools.reduce(lambda x, y: y + "-" + x, key)
       f[key] = reply.find_elements_by_css_selector("div.textPanel")[0].text
 
     return f
@@ -51,6 +51,7 @@ def __access_forum(driver):
     forum = {} # foro principal
 
     search_results = driver.find_elements_by_css_selector("table.forumHeader a.title")
+    print(driver.current_url)
 
     for i in range(len(search_results)):
         key = search_results[i].text # nombre del foro
@@ -68,8 +69,4 @@ def __access_forum(driver):
 # Este driver debe tener una sesion activa en la
 # plataforma de la UNIR
 def load_forums(driver):
-    outupt = __access_forum(driver)
-    response_json = json.dumps(outupt)
-    response_json = json.loads(response_json)
-
-    return response_json
+    return __access_forum(driver)

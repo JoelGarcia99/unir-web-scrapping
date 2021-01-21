@@ -1,0 +1,91 @@
+.forum-appbar {
+    align-items: center;
+    border-bottom: solid rgb(207, 207, 207) 1px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.forum-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: start;
+}
+
+.logout-btn {
+    border: solid 2px #242614;
+    border-radius: 20px;
+    color: #242614;
+    display: block;
+    padding: 0.5rem;
+}
+
+.logout-btn:hover{
+    background-color: #242614;
+    color: white;
+}
+
+img.unir-banner {
+    display: block;
+    height: 50px;
+}
+
+.forum-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.forum-entries {
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    width: 30rem;
+    overflow-y: scroll;
+}
+
+
+.forum-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: scroll;
+    max-height: 80vh;
+    padding: 2rem;
+    max-width:50rem;
+}
+
+.forum-entry {
+    display: block;
+    padding: 0.5rem;
+    -moz-user-select: none;
+    cursor: pointer;
+}
+
+.forum-entry:hover {
+    background-color:  #242614;
+    color: white;
+}
+
+
+.subforum-entries {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.8rem;
+}
+
+.subforum-entry {
+    display: block;
+    padding: 0.5rem;
+    -moz-user-select: none;
+    cursor: pointer;
+}
+
+.subforum-entry:hover {
+    background-color:  #4f532c;
+    color: white;
+}

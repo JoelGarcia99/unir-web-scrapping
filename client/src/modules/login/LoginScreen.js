@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Input } from '../../components/Input';
 
 import './login.css';
@@ -6,7 +7,24 @@ import './login.css';
 export const LoginScreen = () => {
 
     const [form, setForm] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [logged, setLogged] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:5000/status").then(async (response)=>{
+            
+            let responseJSON = await response.json();
+            
+            console.log(responseJSON);
+
+            if(!responseJSON.active) {
+                setLoading(false);
+            }
+            else{
+                setLogged(true);
+            }
+        });
+    }, []);
 
     const handleOnChange = ({target})=>{        
         setForm({...form, [target.name]: target.value});
@@ -15,7 +33,7 @@ export const LoginScreen = () => {
     const handleLogin = async()=>{
 
         setLoading(true);
-
+        console.log(JSON.stringify(form));
         const options = {
             method: 'POST',
             body: JSON.stringify(form),
@@ -26,18 +44,20 @@ export const LoginScreen = () => {
 
         let response = await fetch(
             "http://127.0.0.1:5000/login",
-            options=options
-
+            options
         );
         
         setLoading(false);
-        console.log(response.json());
+        const res = await response.json();
+
+        if(res.success) setLogged(true)
+        else alert("No se pudo iniciar sesión. Asegúrese de que sus credenciales sean válidas");
     }
 
-    return loading?<h1>Cargando</h1>:(
+    return logged?<Redirect to="/home" />:loading?<h1>Cargando</h1>:(
         <div className="column-container">
             <div className="login-banner">
-                <img alt="imagen UNIR" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.Wu_fS0dkmzySGilebvpqfwHaB5%26pid%3DApi&f=1" />
+                <img alt="imagen UNIR" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.Wu_fS0dkmzySGilebvpqfwHaB5%26pid%3DApi&f=1"/>
                 <h2>Desarrollo de aplicaciones en red</h2>
                 <h2>Interacción con un servidor</h2>
             </div>
@@ -50,6 +70,7 @@ export const LoginScreen = () => {
                             name="user"
                             type="email"
                             title="Email"
+                            value={form.user || ""}
                             onChange={handleOnChange}
                         />
                         <br />
@@ -58,6 +79,7 @@ export const LoginScreen = () => {
                             name="password"
                             type="password"
                             title="Contraseña"
+                            value={form.password || ""}
                             onChange={handleOnChange}
                         />
                     </div>

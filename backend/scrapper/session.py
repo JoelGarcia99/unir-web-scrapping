@@ -24,5 +24,11 @@ def login(driver, username, password):
     return True
 
 def isSignedIn(driver):
-    logged = driver.find_element_by_css_selector(".main-content")
-    return logged is None
+    driver.get("https://crosscutting.unir.net/login?ReturnUrl=%2fauthorize%3fclient_id%3dsakai%26redirect_uri%3dhttps%253A%252F%252Fcampusvirtual.unir.net%252Foauth-tool%252Fcrosscutting%252Fcallback%26response_type%3dcode%26state%3d245d7cd5e6ff497dafff1d29212d9fca&client_id=sakai&redirect_uri=https%3A%2F%2Fcampusvirtual.unir.net%2Foauth-tool%2Fcrosscutting%2Fcallback&response_type=code&state=245d7cd5e6ff497dafff1d29212d9fca")
+    logged = True
+    try:
+        driver.find_element_by_css_selector(".main-content")
+    except:
+        logged = False
+
+    return logged

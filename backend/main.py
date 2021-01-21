@@ -1,10 +1,14 @@
-from flask import Flask, request
+import json
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 from .web_driver import driver
 from .scrapper import session, forum
 
 # Punto de ejecucion del programa
 app = Flask(__name__)
+CORS(app)
 
 driver = driver.get_webdriver()
 
@@ -15,20 +19,27 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def login():
-    message = "Login realizado"
+    message = True
     try:
-        session.login(driver, request.form['user'], request.form['password'])
+        session.login(driver, request.get_json()['user'], request.get_json()['password'])
     except:
-        message = "Ya hay un usuario en sesión o su usuario no es válido"
-    return message
+        message = False
+
+    response = jsonify({"success": message})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/post', methods=['GET'])
 def load_post():
-    out = forum.load_forums(driver)
-    return str(out)
+    res = forum.load_forums(driver)
+    print(res)
+    response = jsonify(res)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/status', methods=['GET'])
 def isSignedIn():
-    signed = session.isSignedIn(driver)
-    return signed
+    response = jsonify({"active": True if session.isSignedIn(driver) else False})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { LoginScreen } from './modules/login/LoginScreen';
+import { RouterComponent } from './router/RouterComponent';
 
 import './index.css';
 
 ReactDOM.render(
-  <LoginScreen />,
+  <RouterComponent />,
   document.getElementById('root')
 );
